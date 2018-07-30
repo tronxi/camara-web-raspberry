@@ -1,9 +1,12 @@
 import numpy as np
 import cv2
 
-video_file = 'examples/videos/roller-coaster.mp4'
 cap = cv2.VideoCapture(0)
 fondo = None
+if(cap.isOpened()):
+    print("funciona")
+else:
+    print("error")
 while (cap.isOpened()):
     ret, frame = cap.read()
 
