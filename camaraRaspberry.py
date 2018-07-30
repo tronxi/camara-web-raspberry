@@ -25,6 +25,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         datos_enviar = {'imagen': imagen_en_base64}
         peticion = Request(url, urlencode(datos_enviar).encode())
         respuesta = urlopen(peticion).read().decode()
+        print(respuesta)
 
     cv2.imshow("Image", image)
 
