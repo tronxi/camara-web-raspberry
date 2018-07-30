@@ -9,8 +9,8 @@ import sys
 from urllib.parse import urlencode 
 from urllib.request import Request, urlopen
 
-def signal_handler(sig, frame):
-        print('You pressed Ctrl+C!')
+def signal_handler(sig, frame):  
+        enviarImagen(cv2.imread("error.jpg"))
         sys.exit(0)
 signal.signal(signal.SIGINT, signal_handler)
 
@@ -22,8 +22,10 @@ rawCapture = PiRGBArray(camera, size=(640, 480))
 time.sleep(0.1)
 
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
-    
-    image = frame.array
+    enviarImagen(frame.array)
+
+
+def enviarImagen(imagen):
     codificado_correctamente, buffer = cv2.imencode('.png', image)
 
     if codificado_correctamente:
@@ -31,7 +33,8 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         url = 'http://192.168.0.5/camara-web-web/php/subirImagen.php'
         datos_enviar = {'imagen': imagen_en_base64}
         peticion = Request(url, urlencode(datos_enviar).encode())
-        respuesta = urlopen(peticion)
+        urlopen(peticion)
         time.sleep(0.5)
 
     rawCapture.truncate(0)
+
