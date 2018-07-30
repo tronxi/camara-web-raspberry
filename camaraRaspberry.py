@@ -1,22 +1,11 @@
 import cv2
 
 cap = cv2.VideoCapture(0)
-fondo = None
-if(cap.isOpened()):
-    print("funciona")
+
+leido, frame = cap.read()
+
+if leido == True:
+    cv2.imwrite("prueba.png", frame)
 else:
-    print("error")
-while (cap.isOpened()):
-    ret, frame = cap.read()
-
-    if ret == True:
-        
-        cv2.imshow("Camara", frame)
-        
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-    else:
-        break
-
+    print("error al acceder a la camara")
 cap.release()
-cv2.destroyAllWindows()
