@@ -3,9 +3,16 @@ from picamera import PiCamera
 import time
 import cv2
 import base64
+import signal
+import sys
 
 from urllib.parse import urlencode 
 from urllib.request import Request, urlopen
+
+def signal_handler(sig, frame):
+        print('You pressed Ctrl+C!')
+        sys.exit(0)
+signal.signal(signal.SIGINT, signal_handler)
 
 camera = PiCamera()
 camera.resolution = (640, 480)
