@@ -1,11 +1,15 @@
+from picamera.array import PiRGBArray
+from picamera import PiCamera
+import time
 import cv2
 
-cap = cv2.VideoCapture(0)
-
-leido, frame = cap.read()
-
-if leido == True:
-    cv2.imwrite("prueba.png", frame)
-else:
-    print("error al acceder a la camara")
-cap.release()
+camera = PiCamera()
+rawCapture = PiRGBArray(camera)
+ 
+time.sleep(0.1)
+ 
+camera.capture(rawCapture, format="bgr")
+image = rawCapture.array
+ 
+cv2.imshow("Image", image)
+cv2.waitKey(0)
