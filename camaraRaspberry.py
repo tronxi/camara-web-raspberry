@@ -26,7 +26,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
 
 def enviarImagen(imagen):
-    codificado_correctamente, buffer = cv2.imencode('.png', image)
+    codificado_correctamente, buffer = cv2.imencode('.png', imagen)
 
     if codificado_correctamente:
         imagen_en_base64 = base64.b64encode(buffer).decode('utf-8')
