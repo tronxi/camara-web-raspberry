@@ -26,7 +26,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         print("Enviando foto...")
         peticion = Request(url, urlencode(datos_enviar).encode())
         respuesta = urlopen(peticion).read().decode()
-        print("Guardada con éxito")
+        print(respuesta)
 
     cv2.imshow("Image", image)
 
