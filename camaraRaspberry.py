@@ -26,5 +26,6 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         peticion = Request(url, urlencode(datos_enviar).encode())
         respuesta = urlopen(peticion).read().decode()
         print(respuesta)
+        time.sleep(0.5)
 
     rawCapture.truncate(0)
