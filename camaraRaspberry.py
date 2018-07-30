@@ -27,10 +27,6 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         respuesta = urlopen(peticion).read().decode()
         print(respuesta)
 
-    cv2.imshow("Image", image)
-
-    key = cv2.waitKey(1) & 0xFF
-
     rawCapture.truncate(0)
 
     if key == ord("q"):
