@@ -1,30 +1,23 @@
-"""from picamera.array import PiRGBArray
+from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
 import cv2
 
 camera = PiCamera()
 rawCapture = PiRGBArray(camera)
+camera.framerate = 32
+rawCapture = PiRGBArray(camera, size=(640, 480))
  
 time.sleep(0.1)
- 
-camera.capture(rawCapture, format="bgr")
-image = rawCapture.array
- 
-cv2.imshow("Image", image)
-cv2.waitKey(0)"""
 
-import cv2
-cap = cv2.VideoCapture(0)
-while (cap.isOpened()):
-    ret, frame = cap.read()
-    if ret == True:
-        
-        cv2.imshow("Camara", frame)
-        
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-    else:
+for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+    
+    image = frame.array
+    cv2.imshow("Image", image)
+
+    key = cv2.waitKey(1) & 0xFF
+
+    rawCapture.truncate(0)
+
+    if key == ord("q"):
         break
-cap.release()
-cv2.destroyAllWindows() 
