@@ -12,6 +12,18 @@ from urllib.request import Request, urlopen
 def signal_handler(sig, frame):  
         enviarImagen(cv2.imread("error.jpg"))
         sys.exit(0)
+def enviarImagen(imagen):
+    codificado_correctamente, buffer = cv2.imencode('.png', imagen)
+
+    if codificado_correctamente:
+        imagen_en_base64 = base64.b64encode(buffer).decode('utf-8')
+        url = 'http://192.168.0.5/camara-web-web/php/subirImagen.php'
+        datos_enviar = {'imagen': imagen_en_base64}
+        peticion = Request(url, urlencode(datos_enviar).encode())
+        urlopen(peticion)
+        time.sleep(0.5)
+
+    rawCapture.truncate(0)
 signal.signal(signal.SIGINT, signal_handler)
 
 camera = PiCamera()
@@ -25,16 +37,4 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     enviarImagen(frame.array)
 
 
-def enviarImagen(imagen):
-    codificado_correctamente, buffer = cv2.imencode('.png', imagen)
-
-    if codificado_correctamente:
-        imagen_en_base64 = base64.b64encode(buffer).decode('utf-8')
-        url = 'http://192.168.0.5/camara-web-web/php/subirImagen.php'
-        datos_enviar = {'imagen': imagen_en_base64}
-        peticion = Request(url, urlencode(datos_enviar).encode())
-        urlopen(peticion)
-        time.sleep(0.5)
-
-    rawCapture.truncate(0)
 
