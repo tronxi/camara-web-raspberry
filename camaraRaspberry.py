@@ -24,6 +24,8 @@ def enviarImagen(imagen):
         peticion = Request(url, urlencode(datos_enviar).encode())
         urlopen(peticion)
         time.sleep(0.5)
+    else:
+        print("error al codificar")
 
     #rawCapture.truncate(0)
 
