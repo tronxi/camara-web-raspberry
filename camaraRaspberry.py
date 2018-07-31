@@ -24,14 +24,14 @@ def enviarImagen(imagen):
         urlopen(peticion)
         time.sleep(0.5)
 
-    rawCapture.truncate(0)
+    #rawCapture.truncate(0)
 
 signal.signal(signal.SIGINT, signal_handler)
 
 camera = PiCamera()
-camera.resolution = (320, 240)
+camera.resolution = (640, 480)
 camera.framerate = 32
-rawCapture = PiRGBArray(camera, size=(320, 240))
+rawCapture = PiRGBArray(camera, resize=(320, 240))
  
 time.sleep(0.1)
 
