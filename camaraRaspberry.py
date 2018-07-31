@@ -46,7 +46,7 @@ with picamera.PiCamera() as picam:
         picam.capture('imagen.png', resize=(640, 480))
         imagen = cv2.imread('imagen.png')
         cv2.imshow("imag3n", imagen)
-        time.sleep(0.2)
+        time.sleep(0.1)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
         #enviarImagen(imagen)
