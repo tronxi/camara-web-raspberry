@@ -26,7 +26,7 @@ def enviarImagen(imagen):
     else:
         print("error al codificar")
 
-    rawCapture.truncate(0)
+    #
 
 signal.signal(signal.SIGINT, signal_handler)
 
@@ -38,7 +38,8 @@ rawCapture = PiRGBArray(camera, size=(640, 480))
 time.sleep(0.1)
 
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
-    enviarImagen(cv2.flip(frame.array, 0))"""
+    enviarImagen(cv2.flip(frame.array, 0))
+    rawCapture.truncate(0)"""
 
 
 with picamera.PiCamera() as picam:
