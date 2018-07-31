@@ -59,6 +59,8 @@ while (cap.isOpened()):
 
     if ret == True:
         cv2.imshow("Camara", frame)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
 
 
 
