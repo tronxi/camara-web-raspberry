@@ -22,7 +22,7 @@ def enviarImagen(imagen):
         datos_enviar = {'imagen': imagen_en_base64}
         peticion = Request(url, urlencode(datos_enviar).encode())
         urlopen(peticion)
-        #time.sleep(0.5)
+        time.sleep(0.5)
 
     rawCapture.truncate(0)
 
