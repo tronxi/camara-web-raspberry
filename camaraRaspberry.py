@@ -37,6 +37,7 @@ time.sleep(0.1)
 
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
     enviarImagen(cv2.flip(frame.array, 0))
+    time.sleep(0.5)
     rawCapture.truncate(0)
 
 
