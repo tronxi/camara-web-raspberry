@@ -22,7 +22,7 @@ def enviarImagen(imagen):
         datos_enviar = {'imagen': imagen_en_base64}
         peticion = Request(url, urlencode(datos_enviar).encode())
         urlopen(peticion)
-        time.sleep(0.5)
+        #time.sleep(0.5)
 
     rawCapture.truncate(0)
 
@@ -30,7 +30,7 @@ signal.signal(signal.SIGINT, signal_handler)
 
 camera = PiCamera()
 camera.resolution = (640, 480)
-camera.framerate = 60
+camera.framerate = 16
 rawCapture = PiRGBArray(camera, size=(640, 480))
  
 time.sleep(0.1)
