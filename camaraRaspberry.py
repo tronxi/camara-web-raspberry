@@ -24,7 +24,7 @@ def enviarImagen(imagen):
         urlopen(peticion)
         time.sleep(0.5)
 
-    #rawCapture.truncate(0)
+    rawCapture.truncate(0)
 
 signal.signal(signal.SIGINT, signal_handler)
 
