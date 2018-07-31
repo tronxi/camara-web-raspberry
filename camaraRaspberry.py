@@ -40,7 +40,9 @@ time.sleep(0.1)
 
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
     enviarImagen(cv2.flip(frame.array, 0))"""
-with picamera.PiCamera() as picam:
+
+
+"""with picamera.PiCamera() as picam:
     picam.resolution = (2592, 1944)
     while True:
         picam.capture('imagen.png', resize=(640, 480))
@@ -49,6 +51,14 @@ with picamera.PiCamera() as picam:
         time.sleep(0.1)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-        #enviarImagen(imagen)
+        #enviarImagen(imagen)"""
+
+cap = cv2.VideoCapture(0)
+while (cap.isOpened()):
+    ret, frame = cap.read()
+
+    if ret == True:
+        cv2.imshow("Camara", frame)
+
 
 
