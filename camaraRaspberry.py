@@ -12,6 +12,7 @@ from urllib.request import Request, urlopen
 def signal_handler(sig, frame):  
         enviarImagen(cv2.imread("error.jpg"))
         sys.exit(0)
+        
 def enviarImagen(imagen):
     codificado_correctamente, buffer = cv2.imencode('.png', imagen)
 
@@ -24,6 +25,7 @@ def enviarImagen(imagen):
         time.sleep(0.5)
 
     rawCapture.truncate(0)
+
 signal.signal(signal.SIGINT, signal_handler)
 
 camera = PiCamera()
@@ -34,7 +36,7 @@ rawCapture = PiRGBArray(camera, size=(640, 480))
 time.sleep(0.1)
 
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
-    enviarImagen(frame.array)
+    enviarImagen(cv2.flip(frame.array, 0))
 
 
 
