@@ -44,6 +44,8 @@ with picamera.PiCamera() as picam:
     picam.resolution = (2592, 1944)
     while True:
         picam.capture('imagen.png', resize=(640, 480))
-        enviarImagen(cv2.imread('imagen.png'))
+        imagen = cv2.imread('imagen.png')
+        cv2.imshow(imagen)
+        enviarImagen(imagen)
 
 
