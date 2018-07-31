@@ -26,11 +26,9 @@ def enviarImagen(imagen):
     else:
         print("error al codificar")
 
-    #
-
 signal.signal(signal.SIGINT, signal_handler)
 
-"""camera = PiCamera()
+camera = PiCamera()
 camera.resolution = (640, 480)
 camera.framerate = 32
 rawCapture = PiRGBArray(camera, size=(640, 480))
@@ -39,10 +37,10 @@ time.sleep(0.1)
 
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
     enviarImagen(cv2.flip(frame.array, 0))
-    rawCapture.truncate(0)"""
+    rawCapture.truncate(0)
 
 
-with picamera.PiCamera() as picam:
+"""with picamera.PiCamera() as picam:
     picam.resolution = (2592, 1944)
     while True:
         time.sleep(0.5)
@@ -50,7 +48,7 @@ with picamera.PiCamera() as picam:
         imagen = cv2.imread('imagen.png')
         enviarImagen(imagen)
         if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+            break"""
         
 """cap = cv2.VideoCapture(0)
 while (cap.isOpened()):
