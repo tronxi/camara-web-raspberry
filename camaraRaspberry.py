@@ -23,6 +23,7 @@ def enviarImagen(imagen):
         datos_enviar = {'imagen': imagen_en_base64}
         peticion = Request(url, urlencode(datos_enviar).encode())
         urlopen(peticion)
+        rawCapture.truncate(0)
     else:
         print("error al codificar")
 
@@ -38,7 +39,7 @@ time.sleep(0.1)
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
     enviarImagen(cv2.flip(frame.array, 0))
     time.sleep(0.5)
-    rawCapture.truncate(0)
+    
 
 
 """with picamera.PiCamera() as picam:
