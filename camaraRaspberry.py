@@ -45,7 +45,7 @@ with picamera.PiCamera() as picam:
     while True:
         picam.capture('imagen.png', resize=(640, 480))
         imagen = cv2.imread('imagen.png')
-        cv2.imshow(imagen)
+        cv2.imshow("imag3n", imagen)
         #enviarImagen(imagen)
 
 
