@@ -12,6 +12,7 @@ from urllib.request import Request, urlopen
 
 def signal_handler(sig, frame):  
         enviarImagen(cv2.imread("error.jpg"))
+        time.sleep(1)
         sys.exit(0)
         
 def enviarImagen(imagen):
