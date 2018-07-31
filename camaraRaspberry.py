@@ -58,6 +58,7 @@ while (cap.isOpened()):
 
     if ret == True:
         cv2.imshow("Camara", frame)
+        time.sleep(0.2)
         enviarImagen(frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
