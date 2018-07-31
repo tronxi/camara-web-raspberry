@@ -45,7 +45,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 with picamera.PiCamera() as picam:
     picam.resolution = (2592, 1944)
     while True:
-        time.sleep(0.1)
+        time.sleep(0.5)
         picam.capture('imagen.png', resize=(640, 480))
         imagen = cv2.imread('imagen.png')
         enviarImagen(imagen)
