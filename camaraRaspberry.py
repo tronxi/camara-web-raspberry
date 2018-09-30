@@ -34,7 +34,7 @@ def enviarImagen(imagen):
 signal.signal(signal.SIGINT, signal_handler)
 
 camera = PiCamera()
-camera.resolution = (640, 480)
+camera.resolution = (320, 240)
 camera.framerate = 32
 rawCapture = PiRGBArray(camera, size=(640, 480))
  
