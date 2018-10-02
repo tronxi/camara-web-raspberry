@@ -6,7 +6,8 @@ import cv2
 import base64
 import signal
 import sys
-
+import pexpect
+import time
 from urllib.parse import urlencode 
 from urllib.request import Request, urlopen
 detectado = False
@@ -37,20 +38,33 @@ def buscarCaras(imagen):
     gray = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
     for(x,y,w,h) in faces:
-        if detectado == False:
-            detectado = True
-            print(detectado)
         imagen = cv2.rectangle(imagen, (x,y), (x+w, y+h), (255,0,0),2)
         roi_gray = gray[y:y+h, x:x+w]
         roi_color = imagen[y:y+h, x:x+w]
         eyes = eye_cascade.detectMultiScale(roi_gray)
         for (ex,ey,ew,eh) in eyes:
             cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
+        if detectado == False:
+            detectado = True
+            print(detectado)
+            enviarTelegram(imagen)
         return imagen
     if detectado == True:
         detectado = False
         print(detectado)
     return imagen
+
+def enviarTelegram(foto):
+    contacto = "Yo"
+    telegram = pexpect.spawn('../bin/telegram-cli -k tg.pub')
+    telegram.expect('>')
+    telegram.sendline('dialog_list')
+    telegram.expect('unread')
+    #foto = ""
+    telegram.sendline('send_photo ' + contacto + ' ' + foto)
+    telegram.expect('100', timeout = 1200)
+    telegram.expect('photo')
+    telegram.sendline('quitd')
 
 signal.signal(signal.SIGINT, signal_handler)
 
