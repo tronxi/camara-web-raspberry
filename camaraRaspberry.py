@@ -43,6 +43,8 @@ def buscarCaras(imagen):
         eyes = eye_cascade.detectMultiScale(roi_gray)
         for (ex,ey,ew,eh) in eyes:
             cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
+        return imagen
+    detectado = False
     return imagen
 
 signal.signal(signal.SIGINT, signal_handler)
