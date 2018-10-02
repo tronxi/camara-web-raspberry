@@ -47,20 +47,21 @@ def buscarCaras(imagen):
         if detectado == False:
             detectado = True
             print(detectado)
-            enviarTelegram(imagen)
+            cv2.imwrite('cara.png', imagen)
+            enviarTelegram()
         return imagen
     if detectado == True:
         detectado = False
         print(detectado)
     return imagen
 
-def enviarTelegram(foto):
+def enviarTelegram():
     contacto = "Yo"
     telegram = pexpect.spawn('../bin/telegram-cli -k tg.pub')
     telegram.expect('>')
     telegram.sendline('dialog_list')
     telegram.expect('unread')
-    #foto = ""
+    foto = "imagen.png"
     telegram.sendline('send_photo ' + contacto + ' ' + foto)
     telegram.expect('100', timeout = 1200)
     telegram.expect('photo')
