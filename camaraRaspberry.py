@@ -30,6 +30,17 @@ def enviarImagen(imagen):
         rawCapture.truncate(0)
     else:
         print("error al codificar")
+def buscarCaras(imagen):
+    gray = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
+    faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+    for(x,y,w,h) in faces:
+        imagen = cv2.rectangle(imagen, (x,y), (x+w, y+h), (255,0,0),2)
+        roi_gray = gray[y:y+h, x:x+w]
+        roi_color = imagen[y:y+h, x:x+w]
+        eyes = eye_cascade.detectMultiScale(roi_gray)
+        for (ex,ey,ew,eh) in eyes:
+            cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
+    return imagen
 
 signal.signal(signal.SIGINT, signal_handler)
 
@@ -42,15 +53,6 @@ time.sleep(0.1)
 
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
     imagen = cv2.flip(frame.array, 0)
-    gray = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
-    faces = face_cascade.detectMultiScale(gray, 1.3, 5)
-    for(x,y,w,h) in faces:
-        imagen = cv2.rectangle(imagen, (x,y), (x+w, y+h), (255,0,0),2)
-        roi_gray = gray[y:y+h, x:x+w]
-        roi_color = imagen[y:y+h, x:x+w]
-        eyes = eye_cascade.detectMultiScale(roi_gray)
-        for (ex,ey,ew,eh) in eyes:
-            cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
-    enviarImagen(imagen)
+    enviarImagen(buscarCaras(imagen))
 
 
