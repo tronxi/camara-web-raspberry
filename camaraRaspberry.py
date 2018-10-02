@@ -43,7 +43,6 @@ def buscarCaras(imagen):
         eyes = eye_cascade.detectMultiScale(roi_gray)
         for (ex,ey,ew,eh) in eyes:
             cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
-    print(detectado)
     return imagen
 
 signal.signal(signal.SIGINT, signal_handler)
@@ -58,5 +57,6 @@ time.sleep(0.1)
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
     imagen = cv2.flip(frame.array, 0)
     enviarImagen(buscarCaras(imagen))
+    print(detectado)
 
 
