@@ -61,7 +61,7 @@ def enviarTelegram():
     telegram.expect('>')
     telegram.sendline('dialog_list')
     telegram.expect('unread')
-    foto = "imagen.png"
+    foto = "cara.png"
     telegram.sendline('send_photo ' + contacto + ' ' + foto)
     telegram.expect('100', timeout = 1200)
     telegram.expect('photo')
