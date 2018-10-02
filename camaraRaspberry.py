@@ -32,7 +32,7 @@ def enviarImagen(imagen):
     else:
         print("error al codificar")
 
-def buscarCaras(imagen):
+def buscarCaras(imagen, detectado):
     gray = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
     for(x,y,w,h) in faces:
@@ -56,7 +56,7 @@ time.sleep(0.1)
 
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
     imagen = cv2.flip(frame.array, 0)
-    enviarImagen(buscarCaras(imagen))
+    enviarImagen(buscarCaras(imagen, detectado))
     print(detectado)
 
 
