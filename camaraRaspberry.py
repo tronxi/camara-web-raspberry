@@ -9,6 +9,7 @@ import sys
 
 from urllib.parse import urlencode 
 from urllib.request import Request, urlopen
+detectado = False
 
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
@@ -36,7 +37,9 @@ def buscarCaras(imagen):
     gray = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
     for(x,y,w,h) in faces:
-        detectado = True
+        if detectado == False:
+            detectado = True
+            print(detectado)
         imagen = cv2.rectangle(imagen, (x,y), (x+w, y+h), (255,0,0),2)
         roi_gray = gray[y:y+h, x:x+w]
         roi_color = imagen[y:y+h, x:x+w]
@@ -44,7 +47,9 @@ def buscarCaras(imagen):
         for (ex,ey,ew,eh) in eyes:
             cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
         return imagen
-    detectado = False
+    if detectado == True:
+        detectado = False
+        print(detectado)
     return imagen
 
 signal.signal(signal.SIGINT, signal_handler)
@@ -55,7 +60,6 @@ camera.framerate = 32
 rawCapture = PiRGBArray(camera, size=(320, 240))
  
 time.sleep(0.1)
-detectado = False
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
     imagen = cv2.flip(frame.array, 0)
     enviarImagen(buscarCaras(imagen))
