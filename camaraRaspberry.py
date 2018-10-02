@@ -63,6 +63,6 @@ time.sleep(0.1)
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
     imagen = cv2.flip(frame.array, 0)
     enviarImagen(buscarCaras(imagen))
-    print(detectado)
+    #print(detectado)
 
 
