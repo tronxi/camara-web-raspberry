@@ -32,6 +32,7 @@ def enviarImagen(imagen):
         print("error al codificar")
 
 def buscarCaras(imagen):
+    global detectado
     gray = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
     for(x,y,w,h) in faces:
