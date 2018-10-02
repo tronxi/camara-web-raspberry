@@ -65,7 +65,7 @@ def enviarTelegram():
     telegram.sendline('send_photo ' + contacto + ' ' + foto)
     telegram.expect('100', timeout = 1200)
     telegram.expect('photo')
-    telegram.sendline('quitd')
+    telegram.sendline('quit')
 
 signal.signal(signal.SIGINT, signal_handler)
 
