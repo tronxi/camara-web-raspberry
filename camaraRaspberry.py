@@ -12,7 +12,6 @@ from urllib.request import Request, urlopen
 
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
-detectado = False
 def signal_handler(sig, frame):  
         enviarImagen(cv2.imread("error.jpg"))
         time.sleep(1)
@@ -32,7 +31,7 @@ def enviarImagen(imagen):
     else:
         print("error al codificar")
 
-def buscarCaras(imagen, detectado):
+def buscarCaras(imagen):
     gray = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
     for(x,y,w,h) in faces:
@@ -53,10 +52,10 @@ camera.framerate = 32
 rawCapture = PiRGBArray(camera, size=(320, 240))
  
 time.sleep(0.1)
-
+detectado = False
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
     imagen = cv2.flip(frame.array, 0)
-    enviarImagen(buscarCaras(imagen, detectado))
+    enviarImagen(buscarCaras(imagen))
     print(detectado)
 
 
