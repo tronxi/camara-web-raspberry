@@ -24,7 +24,7 @@ def enviarImagen(imagen):
 
     if codificado_correctamente:
         imagen_en_base64 = base64.b64encode(buffer).decode('utf-8')
-        url = 'http://192.168.0.5/camara-web-web/php/subirImagen.php'
+        url = 'http://192.168.1.5/camara-web-web/php/subirImagen.php'
         datos_enviar = {'imagen': imagen_en_base64}
         peticion = Request(url, urlencode(datos_enviar).encode())
         urlopen(peticion)
